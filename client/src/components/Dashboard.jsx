@@ -4,6 +4,7 @@ import { Chart, PieSeries, Title } from "@devexpress/dx-react-chart-bootstrap4";
 import "@devexpress/dx-react-chart-bootstrap4/dist/dx-react-chart-bootstrap4.css";
 import { Animation } from "@devexpress/dx-react-chart";
 import axios from "axios";
+import { URL } from "../uri";
 
 export default function Dashboard() {
   const [users, setUsers] = useState([
@@ -17,7 +18,7 @@ export default function Dashboard() {
 
   const getUsers = () => {
     axios
-      .get("http://localhost:5000/getusers")
+      .get(`${URL}/getusers`)
       .then((res) => {
         let arr = [
           { plan: "Standard", val: 0 },

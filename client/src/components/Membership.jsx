@@ -17,6 +17,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import axios from "axios";
+import { URL } from "../uri";
 
 const Membership = () => {
   const [open, setOpen] = React.useState(false);
@@ -33,7 +34,7 @@ const Membership = () => {
 
   const getUsers = () => {
     axios
-      .get("http://localhost:5000/getusers")
+      .get(`${URL}/getusers`)
       .then((res) => {
         setUsers(res.data.data);
       })
@@ -42,7 +43,7 @@ const Membership = () => {
 
   const addUser = () => {
     axios
-      .patch("http://localhost:5000/adduser", formData)
+      .patch(`${URL}/adduser`, formData)
       .then((res) => {
         console.log(res);
         setFormData(initialState);
