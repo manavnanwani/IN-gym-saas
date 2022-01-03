@@ -1,32 +1,73 @@
-import * as React from "react";
-import Typography from "@mui/material/Typography";
-import Paper from "@mui/material/Paper";
+import React, { useState, useEffect } from "react";
+
 import { Chart, PieSeries, Title } from "@devexpress/dx-react-chart-bootstrap4";
 import "@devexpress/dx-react-chart-bootstrap4/dist/dx-react-chart-bootstrap4.css";
 import { Animation } from "@devexpress/dx-react-chart";
+import axios from "axios";
 
 export default function Dashboard() {
-  const data = [
-    { region: "Asia", val: 4119626293 },
-    { region: "Africa", val: 1012956064 },
-    { region: "Northern America", val: 344124520 },
-    { region: "Latin America and the Caribbean", val: 590946440 },
-    { region: "Europe", val: 727082222 },
-    { region: "Oceania", val: 35104756 },
-  ];
+  const [users, setUsers] = useState([
+    { plan: "Standard", val: 0 },
+    { plan: "Premium", val: 0 },
+  ]);
+
+  useEffect(() => {
+    getUsers();
+  }, []);
+
+  const getUsers = () => {
+    axios
+      .get("http://localhost:5000/getusers")
+      .then((res) => {
+        let arr = [
+          { plan: "Standard", val: 0 },
+          { plan: "Premium", val: 0 },
+        ];
+        res.data.data.map((ele) => {
+          arr.map((ele2) => {
+            if (ele.plan == ele2.plan) ele2.val = ele2.val + 1;
+          });
+        });
+        setUsers(arr);
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <div>
-      Dashboard
       <div className="card">
-        <Chart data={data}>
-          <PieSeries
-            valueField="val"
-            argumentField="region"
-            innerRadius={0.6}
-          />
-          <Title text="The Population of Continents and Regions" />
+        <Chart data={users}>
+          <PieSeries valueField="val" argumentField="plan" innerRadius={0.6} />
+          <Title text="The Members" />
           <Animation />
         </Chart>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "flex-end",
+          alignItems: "flex-end",
+          flexDirection: "column",
+        }}
+      >
+        <div
+          style={{ display: "flex", alignItems: "center", margin: "10px 0" }}
+        >
+          <div
+            style={{ width: "40px", height: "40px", background: "red" }}
+          ></div>
+          <p style={{ width: "120px", textAlign: "center" }}>
+            Premium - {users[1].val}
+          </p>
+        </div>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <div
+            style={{ width: "40px", height: "40px", background: "blue" }}
+          ></div>
+          <p style={{ width: "120px", textAlign: "center" }}>
+            Standard - {users[0].val}
+          </p>
+        </div>
       </div>
     </div>
   );
