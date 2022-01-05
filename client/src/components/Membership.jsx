@@ -76,7 +76,7 @@ const Membership = () => {
           Add Member
         </Button>
         <Dialog open={open} onClose={handleClose} fullWidth maxWidth="xs">
-          <DialogTitle id="alert-dialog-title">Add New Member</DialogTitle>
+          <DialogTitle id="alert-dialog-title">Add New Membership</DialogTitle>
           <DialogContent>
             <TextField
               label="Name"

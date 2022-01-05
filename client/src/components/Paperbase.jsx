@@ -3,12 +3,10 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Link from "@mui/material/Link";
 import Navigator from "./Navigator";
-import Header from "./Header";
 import Dashboard from "./Dashboard";
 import Membership from "./Membership";
+import Members from "./Members";
 import {
   BrowserRouter as Router,
   Switch,
@@ -205,6 +203,7 @@ export default function Paperbase() {
                 />
                 <Route exact path="/dashboard" component={Dashboard} />
                 <Route exact path="/membership" component={Membership} />
+                <Route exact path="/members" component={Members} />
               </Switch>
             </Box>
           </Box>

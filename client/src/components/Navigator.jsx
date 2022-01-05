@@ -34,7 +34,7 @@ const categories = [
         icon: <DnsRoundedIcon />,
         link: "/membership",
       },
-      { id: "Members", icon: <PermMediaOutlinedIcon /> },
+      { id: "Members", icon: <PermMediaOutlinedIcon />, link: "/members" },
       { id: "Staff Member", icon: <PublicIcon /> },
       { id: "Class Schedule", icon: <SettingsEthernetIcon /> },
       {
