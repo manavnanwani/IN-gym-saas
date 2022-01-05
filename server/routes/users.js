@@ -4,6 +4,7 @@ import User from "../models/users.js";
 import Member from "../models/members.js";
 import Staff from "../models/staff.js";
 import classSchedule from "../models/classSchedule.js";
+import Product from "../models/products.js";
 
 router.get("/", () => {
   res.send("test");
@@ -130,6 +131,40 @@ router.delete("/deleteclass/:id", async (req, res) => {
   try {
     const { id } = req.params;
     await classSchedule.findByIdAndDelete(id);
+    res.json({ message: "User Deleted" });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+});
+
+// -----------------------
+// PRODUCTS
+// -----------------------
+
+router.patch("/addproduct", async (req, res) => {
+  const formData = req.body;
+  const newUser = new Product(formData);
+  try {
+    await newUser.save();
+    res.status(200).json(newUser);
+  } catch (error) {
+    console.log(error);
+    res.status(409).json({ message: error.message });
+  }
+});
+
+router.get("/getproducts", async (req, res) => {
+  try {
+    const allUsers = await Product.find();
+    res.json({ data: allUsers });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+});
+router.delete("/deleteproduct/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    await Product.findByIdAndDelete(id);
     res.json({ message: "User Deleted" });
   } catch (error) {
     res.status(404).json({ message: error.message });
