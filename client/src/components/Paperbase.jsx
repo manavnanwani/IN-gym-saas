@@ -13,6 +13,9 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
+import Staff from "./Staff";
+import ClassSchedule from "./ClassSchedule";
+import Products from "./Products";
 
 let theme = createTheme({
   palette: {
@@ -204,6 +207,9 @@ export default function Paperbase() {
                 <Route exact path="/dashboard" component={Dashboard} />
                 <Route exact path="/membership" component={Membership} />
                 <Route exact path="/members" component={Members} />
+                <Route exact path="/staff" component={Staff} />
+                <Route exact path="/class" component={ClassSchedule} />
+                <Route exact path="/products" component={Products} />
               </Switch>
             </Box>
           </Box>

@@ -44,16 +44,16 @@ const Staff = () => {
 
   const getUsers = () => {
     axios
-      .get(`${URL}/getmembers`)
+      .get(`${URL}/getstaffs`)
       .then((res) => {
         setUsers(res.data.data);
       })
       .catch((err) => console.log(err));
   };
-  console.log(users);
+
   const deleteMember = (id) => {
     axios
-      .delete(`${URL}/deletemember/${id}`)
+      .delete(`${URL}/deletestaff/${id}`)
       .then((res) => {
         getUsers();
       })
@@ -62,7 +62,7 @@ const Staff = () => {
 
   const addUser = () => {
     axios
-      .patch(`${URL}/addmember`, formData)
+      .patch(`${URL}/addstaff`, formData)
       .then((res) => {
         console.log(res);
         setFormData(initialState);
@@ -89,6 +89,8 @@ const Staff = () => {
     endDate: "2022-01-01",
     paymentDate: "2022-01-01",
     filepath: "",
+    salary: "",
+    attendance: "",
   };
   const [formData, setFormData] = useState(initialState);
 
@@ -155,10 +157,12 @@ const Staff = () => {
     <div>
       <div style={{ display: "flex", justifyContent: "flex-end" }}>
         <Button variant="contained" onClick={handleClickOpen}>
-          Add Member
+          Add Staff
         </Button>
         <Dialog open={open} onClose={handleClose} fullWidth maxWidth="xs">
-          <DialogTitle id="alert-dialog-title">Add New Member</DialogTitle>
+          <DialogTitle id="alert-dialog-title">
+            Add New Staff Member
+          </DialogTitle>
           <DialogContent>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <TextField
@@ -280,6 +284,24 @@ const Staff = () => {
                 style={{ width: "48%", marginTop: "10px" }}
               />
             </div>
+            <TextField
+              label="Salary"
+              fullWidth
+              value={formData.salary}
+              onChange={(e) =>
+                setFormData({ ...formData, salary: e.target.value })
+              }
+              style={{ marginTop: "10px" }}
+            />
+            <TextField
+              label="Attendance"
+              fullWidth
+              value={formData.attendance}
+              onChange={(e) =>
+                setFormData({ ...formData, attendance: e.target.value })
+              }
+              style={{ marginTop: "10px" }}
+            />
             <center>
               <Dropzone onDrop={handleDrop}>
                 {({ getRootProps, getInputProps }) => (
@@ -334,11 +356,10 @@ const Staff = () => {
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
+                <TableCell>Photo</TableCell>
                 <TableCell>User ID</TableCell>
                 <TableCell>First Name</TableCell>
                 <TableCell>Last Name</TableCell>
-                <TableCell>Start Date</TableCell>
-                <TableCell>End Date</TableCell>
                 <TableCell align="center">Actions</TableCell>
               </TableRow>
             </TableHead>
@@ -348,13 +369,22 @@ const Staff = () => {
                   key={row._id}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
+                  <TableCell>
+                    <img
+                      src={
+                        row?.filePath ||
+                        "https://www.freeiconspng.com/thumbs/profile-icon-png/profile-icon-9.png"
+                      }
+                      alt="pp"
+                      width="50"
+                    />
+                  </TableCell>
                   <TableCell component="th" scope="row">
                     {row._id}
                   </TableCell>
                   <TableCell>{row.firstName}</TableCell>
                   <TableCell>{row.lastName}</TableCell>
-                  <TableCell>{row.startDate}</TableCell>
-                  <TableCell>{row.endDate}</TableCell>
+
                   <TableCell align="center">
                     <Button>Edit</Button>
                     <Button onClick={() => deleteMember(row._id)}>

@@ -50,7 +50,7 @@ const Members = () => {
       })
       .catch((err) => console.log(err));
   };
-  console.log(users);
+
   const deleteMember = (id) => {
     axios
       .delete(`${URL}/deletemember/${id}`)

@@ -73,7 +73,7 @@ const Membership = () => {
     <div>
       <div style={{ display: "flex", justifyContent: "flex-end" }}>
         <Button variant="contained" onClick={handleClickOpen}>
-          Add Member
+          Add Membership
         </Button>
         <Dialog open={open} onClose={handleClose} fullWidth maxWidth="xs">
           <DialogTitle id="alert-dialog-title">Add New Membership</DialogTitle>
